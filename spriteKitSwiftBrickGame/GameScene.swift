@@ -45,7 +45,32 @@ class GameScene: SKScene {
         
     }
     
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent){
+        
+        //check if fingerOnPaddle already set to true!
+        if isFingerOnPaddle {
+        // get location
+            var touch = touches.first as! UITouch
+            var touchLocation = touch.locationInNode( self )
+            var previousLocation = touch.previousLocationInNode( self )
+
+            // get paddle node
+            var paddle = childNodeWithName(PaddleCategoryName) as!SKSpriteNode
+            
+            //calc new position for x
+            var paddleXPosition = paddle.position.x + (touchLocation.x - previousLocation.x)
+            
+            //cage paddle within screen bounds
+            paddleXPosition = max( paddleXPosition, paddle.size.width/2)
+            paddleXPosition = min(paddleXPosition, size.width - paddle.size.width/2)
+            
+            // update paddle to new position
+            paddle.position = CGPointMake( paddleXPosition, paddle.position.y )
+            
+        } // end if
+    }
     
-}
+    
+}// end class
 
 
