@@ -9,6 +9,12 @@ let BlockNodeCategoryName = "blockNode"
 
 var isFingerOnPaddle = false
 
+// setting up constant categories for physics body bit masks
+let BallCategory   : UInt32 = 0x1 << 0 // 00000000000000000000000000000001
+let BottomCategory : UInt32 = 0x1 << 1 // 00000000000000000000000000000010
+let BlockCategory  : UInt32 = 0x1 << 2 // 00000000000000000000000000000100
+let PaddleCategory : UInt32 = 0x1 << 3 // 00000000000000000000000000001000
+
 
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
@@ -24,12 +30,16 @@ class GameScene: SKScene {
         //remove gravity
         physicsWorld.gravity = CGVectorMake(0, 0)
         
-        // Xcode 6.3 syntax:
-         let ball = childNodeWithName(BallCategoryName) as! SKSpriteNode
-        // Xcode 6.2 syntax:
-//        let ball = childNodeWithName(BallCategoryName) as SKSpriteNode
-
+        let ball = childNodeWithName(BallCategoryName) as! SKSpriteNode
         ball.physicsBody!.applyImpulse( CGVectorMake( 10,-10 ))
+        
+        
+        // Adding physics body to bottom of the screen
+        let bottomRect = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 1)
+        let bottom = SKNode()
+        bottom.physicsBody = SKPhysicsBody(edgeLoopFromRect: bottomRect)
+        addChild(bottom)
+        
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
