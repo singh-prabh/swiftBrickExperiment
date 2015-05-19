@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         paddle.physicsBody!.categoryBitMask = PaddleCategory
         
         // Adding bottom category to track when ball hits bottom of screen
-        ball.physicsBody!.contactTestBitMask = BottomCategory
+        ball.physicsBody!.contactTestBitMask = BottomCategory | BlockCategory
         
         self.loadBlocks()
         
@@ -124,10 +124,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 gameOverScene.gameWon = false
                 mainView.presentScene( gameOverScene )
             }
+            
+        }else if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
+            secondBody.node!.removeFromParent()
+            println("block smash by ball! whoo!")
+            //next step check if game has been won!
         }
     }
     
-    func loadBlocks() {
+    func loadBlocks()   {
         // store constants for func
         let numberOfBlocks = 5
         
