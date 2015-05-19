@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		637FABAB1B0BE2B5000C97E8 /* GameOverScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 637FABAA1B0BE2B5000C97E8 /* GameOverScene.sks */; };
 		63AD52731B0A9F7600160901 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AD52721B0A9F7600160901 /* AppDelegate.swift */; };
 		63AD52751B0A9F7600160901 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 63AD52741B0A9F7600160901 /* GameScene.sks */; };
 		63AD52771B0A9F7600160901 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AD52761B0A9F7600160901 /* GameScene.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		637FABAA1B0BE2B5000C97E8 /* GameOverScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverScene.sks; sourceTree = "<group>"; };
 		63AD526D1B0A9F7600160901 /* spriteKitSwiftBrickGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spriteKitSwiftBrickGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AD52711B0A9F7600160901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AD52721B0A9F7600160901 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				63AD52721B0A9F7600160901 /* AppDelegate.swift */,
 				63AD52741B0A9F7600160901 /* GameScene.sks */,
+				637FABAA1B0BE2B5000C97E8 /* GameOverScene.sks */,
 				63AD52761B0A9F7600160901 /* GameScene.swift */,
 				63AD52781B0A9F7600160901 /* GameViewController.swift */,
 				63AD527A1B0A9F7600160901 /* Main.storyboard */,
@@ -201,6 +204,7 @@
 				63AD52811B0A9F7600160901 /* LaunchScreen.xib in Resources */,
 				63AD527E1B0A9F7600160901 /* Images.xcassets in Resources */,
 				63AD52751B0A9F7600160901 /* GameScene.sks in Resources */,
+				637FABAB1B0BE2B5000C97E8 /* GameOverScene.sks in Resources */,
 				63AD527C1B0A9F7600160901 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +417,7 @@
 				63AD52921B0A9F7600160901 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63AD52931B0A9F7600160901 /* Build configuration list for PBXNativeTarget "spriteKitSwiftBrickGameTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +426,7 @@
 				63AD52951B0A9F7600160901 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
