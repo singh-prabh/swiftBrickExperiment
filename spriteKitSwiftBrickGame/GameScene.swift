@@ -161,6 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             block.physicsBody!.affectedByGravity = false
             block.name = BlockCategoryName
             block.physicsBody!.categoryBitMask = BlockCategory
+            block.physicsBody!.dynamic = false // important -- blocks will steal some of the balls momentum if true
 
             //add block to game board
             addChild(block)
