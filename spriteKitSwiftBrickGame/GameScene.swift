@@ -7,6 +7,9 @@ let PaddleCategoryName = "paddle"
 let BlockCategoryName = "block"
 let BlockNodeCategoryName = "blockNode"
 
+var isFingerOnPaddle = false
+
+
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
@@ -21,11 +24,28 @@ class GameScene: SKScene {
         //remove gravity
         physicsWorld.gravity = CGVectorMake(0, 0)
         
-//        Xcode 6.3 syntax:
-//        let ball = childNodeWithName(BallCategoryName) as! SKSpriteNode
-//        Xcode 6.2 syntax:
-        let ball = childNodeWithName(BallCategoryName) as SKSpriteNode
+        // Xcode 6.3 syntax:
+         let ball = childNodeWithName(BallCategoryName) as! SKSpriteNode
+        // Xcode 6.2 syntax:
+//        let ball = childNodeWithName(BallCategoryName) as SKSpriteNode
 
         ball.physicsBody!.applyImpulse( CGVectorMake( 10,-10 ))
     }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        var touch = touches.first as! UITouch
+        var touchLocation = touch.locationInNode( self )
+        
+        if let body = physicsWorld.bodyAtPoint( touchLocation ){
+            if body.node!.name == PaddleCategoryName{
+                println("Began touch on paddle!")
+                isFingerOnPaddle = true
+            }
+        }
+        
+    }
+    
+    
 }
+
+
