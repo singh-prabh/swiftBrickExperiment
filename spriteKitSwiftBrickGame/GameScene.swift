@@ -70,6 +70,10 @@ class GameScene: SKScene {
         } // end if
     }
     
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        isFingerOnPaddle = false
+    }
+    
     
 }// end class
 
