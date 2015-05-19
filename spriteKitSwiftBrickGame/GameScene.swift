@@ -16,7 +16,7 @@ let BlockCategory  : UInt32 = 0x1 << 2 // 00000000000000000000000000000100
 let PaddleCategory : UInt32 = 0x1 << 3 // 00000000000000000000000000001000
 
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         
@@ -29,6 +29,8 @@ class GameScene: SKScene {
         
         //remove gravity
         physicsWorld.gravity = CGVectorMake(0, 0)
+        physicsWorld.contactDelegate = self
+
         
         let ball = childNodeWithName(BallCategoryName) as! SKSpriteNode
         ball.physicsBody!.applyImpulse( CGVectorMake( 10,-10 ))
@@ -39,6 +41,17 @@ class GameScene: SKScene {
         let bottom = SKNode()
         bottom.physicsBody = SKPhysicsBody(edgeLoopFromRect: bottomRect)
         addChild(bottom)
+        
+        
+        // set up bottom/ball/paddle bit mask; in this case we're choosing category bitmask; set up categoryBitMask by assigning matching constant from above
+        let paddle = childNodeWithName(PaddleCategoryName) as! SKSpriteNode
+        
+        bottom.physicsBody!.categoryBitMask = BottomCategory
+        ball.physicsBody!.categoryBitMask = BallCategory
+        paddle.physicsBody!.categoryBitMask = PaddleCategory
+        
+        // Adding bottom category to track when ball hits bottom of screen
+        ball.physicsBody!.contactTestBitMask = BottomCategory
         
     }
     
@@ -82,6 +95,28 @@ class GameScene: SKScene {
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         isFingerOnPaddle = false
+    }
+    
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        //create local vars for two physics bodies
+        var firstBody: SKPhysicsBody // notice currently undefined
+        var secondBody: SKPhysicsBody // notice currently undefined
+        
+        //assign two bodies so that the one with the lower category ALWAYS will be stored in var firstBody
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        //listen for contact between ball and bottom screen
+        if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory{
+            println("Ball hit bottom y'all! BOOOOOOOOM!")
+        }
+        
     }
     
     
