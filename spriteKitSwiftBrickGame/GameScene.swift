@@ -128,7 +128,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }else if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
             secondBody.node!.removeFromParent()
             println("block smash by ball! whoo!")
-            //next step check if game has been won!
+            
+            if isGameWon(){
+                if let mainView = view {
+                    let gameOverScene = GameOverScene.unarchiveFromFile("GameOverScene") as! GameOverScene
+                    gameOverScene.gameWon = true
+                    mainView.presentScene( gameOverScene )
+
+                }
+            }
         }
     }
     
@@ -167,6 +175,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(block)
             
         }
+    }
+    
+    func isGameWon() -> Bool {
+        var numberOfBricks = 0
+        self.enumerateChildNodesWithName( BlockCategoryName ) {
+            node, stop in
+            numberOfBricks = numberOfBricks + 1
+        }
+        
+        return numberOfBricks == 0
     }
     
     
