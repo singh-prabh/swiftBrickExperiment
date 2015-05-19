@@ -53,6 +53,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Adding bottom category to track when ball hits bottom of screen
         ball.physicsBody!.contactTestBitMask = BottomCategory
         
+        self.loadBlocks()
+        
+        
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -121,9 +124,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 gameOverScene.gameWon = false
                 mainView.presentScene( gameOverScene )
             }
+        }
+    }
+    
+    func loadBlocks() {
+        // store constants for func
+        let numberOfBlocks = 5
+        
+        let blockWidth = SKSpriteNode(imageNamed: "block.png").size.width
+        let totalBlocksWidth = blockWidth * CGFloat( numberOfBlocks )
+        
+        let padding:CGFloat = 10.00
+        let totalPadding = padding * CGFloat(numberOfBlocks - 1)
+        
+        //xOffset is the distance between left border of screen and closest block
+        let xOffset = (CGRectGetWidth( frame ) - totalBlocksWidth - totalPadding)/2
+        
+        for i in 0..<numberOfBlocks {
+            //set img for spritenode
+            let block = SKSpriteNode( imageNamed: "block.png")
+            //establish coords for each block
+            let blockXPoint = xOffset + CGFloat( CGFloat(i)+0.5 )*blockWidth + CGFloat(i-1)*padding
+            let blockYPoint = CGRectGetHeight( frame ) * 0.8
+            
+            block.position = CGPointMake( blockXPoint, blockYPoint )
+            
+            //block physics body details
+            block.physicsBody = SKPhysicsBody( rectangleOfSize: block.frame.size )
+            block.physicsBody!.allowsRotation = false
+            block.physicsBody!.friction = 0.0
+            block.physicsBody!.affectedByGravity = false
+            block.name = BlockCategoryName
+            block.physicsBody!.categoryBitMask = BlockCategory
+
+            //add block to game board
+            addChild(block)
             
         }
-        
     }
     
     
